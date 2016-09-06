@@ -90,9 +90,8 @@ class Snake(cocos.cocosnode.CocosNode):
 
         self.x += math.cos(self.angle * math.pi / 180) * dt * self.speed
         self.y += math.sin(self.angle * math.pi / 180) * dt * self.speed
-
         self.path.append(self.position)
-        # del self.path[0]
+
         lag = int(round(1100.0 / self.speed))
         for i in range(self.length):
             idx = (i + 1) * lag + 1
