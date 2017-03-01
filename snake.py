@@ -93,7 +93,7 @@ class Snake(cocos.cocosnode.CocosNode):
         self.path.append(self.position)
 
         lag = int(round(1100.0 / self.speed))
-        for i in range((self.length)):
+        for i in range(int(self.length)):
             idx = (i + 1) * lag + 1
             self.body[i].position = self.path[-min(idx,len(self.path))]
             if self.body[i].x == 0:
