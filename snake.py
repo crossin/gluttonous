@@ -93,14 +93,14 @@ class Snake(cocos.cocosnode.CocosNode):
         self.path.append(self.position)
 
         lag = int(round(1100.0 / self.speed))
-        for i in range(self.length):
+        for i in range((self.length)):
             idx = (i + 1) * lag + 1
             self.body[i].position = self.path[-min(idx,len(self.path))]
             if self.body[i].x == 0:
-                print self.body[i].position
+                print(self.body[i].position)
         m_l = max(self.length * lag * 2, 60)
         if len(self.path) > m_l:
-            self.path = self.path[-m_l * 2:]
+            self.path = self.path[int(-m_l * 2):]
 
     def update_angle(self, keys):
         x, y = 0, 0
