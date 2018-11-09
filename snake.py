@@ -55,7 +55,7 @@ class Snake(cocos.cocosnode.CocosNode):
         b.scale = 1.5
         self.body.append(b)
         if self.x == 0:
-            print self.position
+            print(self.position)
         b.position = self.position
         self.parent.batch.add(b, 9999 - len(self.body))
 
