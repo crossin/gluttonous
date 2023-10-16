@@ -9,12 +9,16 @@ from dot import Dot
 
 
 class Snake(cocos.cocosnode.CocosNode):
+    no = 0
+
     def __init__(self, is_enemy=False):
         super(Snake, self).__init__()
         self.is_dead = False
         self.angle = random.randrange(360)  # 目前角度
         self.angle_dest = self.angle  # 目标角度
         self.color = random.choice(define.ALL_COLOR)
+        self.no = Snake.no
+        Snake.no += 1
         if is_enemy:
             self.position = random.randrange(300, 1300), random.randrange(200, 600)
             if 600 < self.x < 1000:
@@ -55,9 +59,12 @@ class Snake(cocos.cocosnode.CocosNode):
         b.scale = 1.5
         self.body.append(b)
         if self.x == 0:
-            print self.position
+            print(self.position)
         b.position = self.position
-        self.parent.batch.add(b, 9999 - len(self.body))
+        try:
+            self.parent.batch.add(b, 999 + 100*self.no - len(self.body))
+        except:
+            print(999 + 100*self.no - len(self.body))
 
     def init_body(self):
         self.score = 30
@@ -93,14 +100,14 @@ class Snake(cocos.cocosnode.CocosNode):
         self.path.append(self.position)
 
         lag = int(round(1100.0 / self.speed))
-        for i in range(self.length):
+        for i in range(len(self.body)):
             idx = (i + 1) * lag + 1
             self.body[i].position = self.path[-min(idx,len(self.path))]
             if self.body[i].x == 0:
-                print self.body[i].position
+                print(self.body[i].position)
         m_l = max(self.length * lag * 2, 60)
         if len(self.path) > m_l:
-            self.path = self.path[-m_l * 2:]
+            self.path = self.path[int(-m_l * 2):]
 
     def update_angle(self, keys):
         x, y = 0, 0
